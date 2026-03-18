@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* Global styles */
 
 body {
@@ -6,41 +10,77 @@ body {
 
 /* header */
 
-.app-header {
-  padding: 10px 20px;
-  border-bottom: 1px solid #e5e7eb;
-  background-color: #ffffff;
+/* header */
+
+.site-header{
+  background:#fff;
+  border-bottom:1px solid #e5e7eb;
 }
 
-.app-header__inner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.header-container{
+  max-width:1100px;
+  margin:0 auto;
+  padding:16px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
 
-.app-header__user {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+.site-title{
+  font-size:22px;
+  font-weight:bold;
+  color:#ec4899;
 }
 
-.app-header__name {
-  font-size: 13px;
-  font-weight: 500;
+.main-nav{
+  margin-top:6px;
+  display:flex;
+  gap:18px;
+  font-size:14px;
 }
 
-.app-header__logout {
-  background: #111827;
-  color: #fff;
-  border: none;
-  padding: 6px 10px;
-  border-radius: 6px;
-  font-size: 12px;
-  cursor: pointer;
+.main-nav a{
+  color:#555;
+  text-decoration:none;
 }
 
-.app-header__logout:hover {
-  opacity: 0.85;
+.main-nav a:hover{
+  color:#ec4899;
+}
+
+.user-area{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  font-size:14px;
+}
+
+.user-name{
+  color:#666;
+}
+
+.logout-btn{
+  background:#595858;
+  color:white;
+  border:none;
+  border-radius:6px;
+  padding:6px 12px;
+  cursor:pointer;
+}
+
+.logout-btn:hover{
+  opacity:0.8;
+}
+
+.login-link,
+.register-link{
+  color:#ec4899;
+  text-decoration:none;
+}
+
+.login-link:hover,
+.register-link:hover{
+  text-decoration:underline;
 }
 
 /* 空き状況カレンダー */
@@ -120,6 +160,92 @@ body {
   color: #111827; /* neutral text */
 }
 
+/* ===== Calendar Page Layout ===== */
+
+.calendar-page{
+  max-width:900px;
+  margin:0 auto;
+}
+
+.calendar-page__title{
+  font-size:20px;
+  font-weight:600;
+  margin-bottom:20px;
+}
+
+.calendar-nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:12px;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.calendar-nav__days{
+  display:flex;
+  gap:10px;
+  font-size:13px;
+}
+
+.calendar-nav__days a{
+  color:#555;
+}
+
+.calendar-nav__days a:hover{
+  color:#ec4899;
+}
+
+.calendar-nav__days .is-today{
+  color:#ec4899;
+  font-weight:600;
+}
+
+.calendar-nav__actions{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.calendar-date-form{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-size:12px;
+}
+
+.calendar-date-form input{
+  border:1px solid #ddd;
+  border-radius:6px;
+  padding:3px 6px;
+}
+
+.calendar-date-form button{
+  background:#595858;
+  color:white;
+  border-radius:6px;
+  padding:4px 10px;
+}
+
+.calendar-new-btn{
+  background:#ec4899;
+  color:white;
+  padding:6px 12px;
+  border-radius:6px;
+}
+
+.calendar-new-btn:hover{
+  opacity:0.9;
+}
+
+.calendar-legend{
+  display:flex;
+  gap:20px;
+  font-size:12px;
+  color:#666;
+  margin-bottom:8px;
+}
+
 /* ===== Staff Page ===== */
 
 .staff-page {
@@ -168,6 +294,19 @@ body {
   background-color: #fafafa;
 }
 
+.staff-name{
+  font-weight:500;
+}
+
+.staff-table td:nth-child(1){
+  width:90px;
+  text-align:center;
+}
+
+.staff-table td:nth-child(2){
+  width:180px;
+}
+
 /* 写真 */
 .staff-photo {
   width: 64px;
@@ -176,4 +315,139 @@ body {
   border-radius: 50%;
   display: block;
   margin: 0 auto;
+}
+
+/* ---------- service list ---------- */
+
+.service-list-wrap{
+  background:white;
+  border-radius:10px;
+  padding:20px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* table */
+
+.service-table{
+  width:100%;
+  max-width:520px;
+  margin:auto;
+}
+
+.service-table thead{
+  background:#f3f4f6;
+}
+
+.service-table th{
+  text-align:left;
+  padding:10px;
+  font-weight:bold;
+}
+
+.service-table td{
+  padding:12px 10px;
+  border-top:1px solid #eee;
+}
+
+/* hover */
+
+.service-table tbody tr:hover{
+  background:#fafafa;
+}
+
+/* column style */
+
+.service-name{
+  font-weight:500;
+}
+
+.service-price{
+  font-weight:bold;
+  color:#ec4899;
+}
+
+/* ===== Appointment Create ===== */
+
+.appointment-page{
+  max-width:600px;
+  margin:0 auto;
+}
+
+.appointment-page__title{
+  font-size:20px;
+  font-weight:600;
+  margin-bottom:20px;
+}
+
+/* form */
+
+.appointment-form{
+  background:white;
+  border-radius:12px;
+  padding:24px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.06);
+}
+
+/* form group */
+
+.form-group{
+  margin-bottom:16px;
+}
+
+.form-group label{
+  display:block;
+  font-size:14px;
+  font-weight:600;
+  margin-bottom:6px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+  width:100%;
+  border:1px solid #ddd;
+  border-radius:6px;
+  padding:8px 10px;
+  font-size:14px;
+}
+
+/* focus */
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+  outline:none;
+  border-color:#ec4899;
+}
+
+/* buttons */
+
+.form-actions{
+  margin-top:20px;
+  display:flex;
+  gap:12px;
+}
+
+.btn-primary{
+  background:#ec4899;
+  color:white;
+  padding:8px 18px;
+  border-radius:6px;
+  border:none;
+}
+
+.btn-primary:hover{
+  opacity:0.9;
+}
+
+.btn-cancel{
+  background:#e5e7eb;
+  color:#374151;
+  padding:8px 18px;
+  border-radius:6px;
+  text-decoration:none;
+}
+
+.btn-cancel:hover{
+  background:#d1d5db;
 }

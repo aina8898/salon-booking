@@ -12,67 +12,66 @@
 <body class="bg-gray-100 text-gray-800 min-h-screen flex flex-col">
 
     <!-- Header -->
-    <header class="bg-white border-b">
-        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+    <header class="site-header">
+        <div class="header-container">
 
-            <!-- Left side -->
-            <div>
-                <h1 class="text-2xl font-bold text-pink-600">
+            <!-- Left -->
+            <div class="header-left">
+
+                <h1 class="site-title">
                     💇‍♀️ Salon Booking
                 </h1>
 
                 @auth
-                    <nav class="mt-2 flex gap-6 text-sm text-gray-600">
-                        <a href="{{ route('appointments.index') }}"
-                           class="hover:text-pink-600 transition">
+                    <nav class="main-nav">
+                        <a href="{{ route('appointments.index') }}">
                             空き状況
                         </a>
 
-                        <a href="{{ route('staff.index') }}"
-                           class="hover:text-pink-600 transition">
+                        <a href="{{ route('staff.index') }}">
                             スタッフ
                         </a>
 
-                        <a href="{{ route('services.index') }}"
-                           class="hover:text-pink-600 transition">
+                        <a href="{{ route('services.index') }}">
                             メニュー
                         </a>
                     </nav>
                 @endauth
+
             </div>
 
-            <!-- Right side -->
-            <div class="flex items-center gap-4 text-sm">
+
+            <!-- Right -->
+            <div class="user-area">
+
                 @auth
-                    <span class="text-gray-600">
+                    <span class="user-name">
                         {{ auth()->user()->name }} さん
                     </span>
 
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <button type="submit"
-                            class="px-3 py-1 rounded-md bg-gray-800 text-white hover:opacity-80 transition">
+                        <button type="submit" class="logout-btn">
                             ログアウト
                         </button>
                     </form>
                 @else
-                    <a href="{{ route('login') }}"
-                       class="text-pink-600 hover:underline">
+                    <a href="{{ route('login') }}" class="login-link">
                         ログイン
                     </a>
 
-                    <a href="{{ route('register') }}"
-                       class="text-pink-600 hover:underline">
+                    <a href="{{ route('register') }}" class="register-link">
                         新規登録
                     </a>
                 @endauth
+
             </div>
 
         </div>
     </header>
 
     <!-- Main -->
-    <main class="flex-1 max-w-6xl mx-auto w-full px-6 py-8">
+    <main class="flex-1 max-w-5xl mx-auto w-full px-6 py-8">
         @yield('content')
     </main>
 
@@ -82,4 +81,5 @@
     </footer>
 
 </body>
+
 </html>

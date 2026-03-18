@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 
 
 /*
@@ -18,10 +20,23 @@ use App\Http\Controllers\ServiceController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('appointments.welcome');
 });
 
-Route::resource('appointments', AppointmentController::class);
+Route::resource('appointments', AppointmentController::class)
+    ->only(['index', 'create', 'store']);
+
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [LoginController::class, 'login']);
+
+    Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+    Route::post('/register', [RegisterController::class, 'register']);
+});
+
+Route::post('/logout', [LoginController::class, 'logout'])
+    ->middleware('auth')
+    ->name('logout');
 
 Route::get('/appointments/calendar', [AppointmentController::class, 'calendar'])
     ->name('appointments.calendar');
