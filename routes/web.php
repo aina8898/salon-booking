@@ -27,7 +27,7 @@ Route::get('/', function () {
 });
 
 Route::resource('appointments', AppointmentController::class)
-    ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
+    ->only(['index', 'create', 'store', 'destroy']);
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');

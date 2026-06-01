@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Appointment;
-use App\Models\Customer;
 use App\Models\Staff;
 use App\Models\Service;
 use Carbon\Carbon;
@@ -118,15 +117,6 @@ class AppointmentController extends Controller
         return redirect()
             ->route('appointments.mypage')
             ->with('success', config('message.appointment_canceled'));
-    }
-
-    public function edit($id)
-    {
-        $appointment = Appointment::findOrFail($id);
-        $customers = Customer::all();
-        $staffs = Staff::all();
-        $menus = Service::all();
-        return view('appointments.edit', compact('appointment', 'customers', 'staffs', 'menus'));
     }
 
     public function calendar(Request $request)
