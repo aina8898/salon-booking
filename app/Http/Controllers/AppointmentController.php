@@ -51,7 +51,7 @@ class AppointmentController extends Controller
         try {
             $appt = Appointment::book($data);
             return redirect()->route('appointments.index')
-                ->with('success', '予約が完了しました。');
+                ->with('success', config('message.appointment_created'));
         } catch (\RuntimeException $e) {
             return back()->withInput()->withErrors(['error' => $e->getMessage()]);
         }
@@ -101,30 +101,23 @@ class AppointmentController extends Controller
         ]);
 
         try {
-            $appt = Appointment::findOrFail($id);
-            [$totalPrice, $totalMin] = Appointment::computeTotals($data['services']);
-
-            $appt->update([
-                'customer_id' => $data['customer_id'],
-                'staff_id' => $data['staff_id'],
-                'appointment_start' => $data['appointment_start'],
-                'total_price' => $totalPrice,
-                'total_minutes' => $totalMin,
-                'services_json' => json_encode($data['services']),
-                'note' => $data['note'] ?? null,
-            ]);
-
+            $appt = Appointment::updateAppointment($id, $data);
             return response()->json($appt, 200);
         } catch (\RuntimeException $e) {
-            return response()->json(['message' => $e->getMessage()], 422);
+            return response()->json([
+                'message' => config('message.appointment_updated'),
+                'data' => $appt
+            ], 200);
         }
     }
 
     public function destroy($id)
     {
-        $appt = Appointment::findOrFail($id);
-        $appt->delete();
-        return response()->json(['message' => '予約を削除しました'], 200);
+        Appointment::remove($id);
+
+        return redirect()
+            ->route('appointments.mypage')
+            ->with('success', config('message.appointment_canceled'));
     }
 
     public function edit($id)
@@ -210,4 +203,17 @@ class AppointmentController extends Controller
             'totalMinutes' => $totalMinutes,
         ]);
     }
+
+    public function mypage()
+    {
+        $appointments = Appointment::withBasics()
+            ->where('customer_id', auth()->id())
+            ->orderBy('appointment_start', 'desc')
+            ->paginate(10);
+
+        $menus = Service::all()->keyBy('id');
+
+        return view('appointments.mypage', compact('appointments', 'menus'));
+    }
+
 }

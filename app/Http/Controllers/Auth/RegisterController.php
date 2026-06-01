@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 
@@ -25,12 +26,14 @@ class RegisterController extends Controller
             'password' => ['required', 'confirmed', Password::defaults()],
         ]);
 
-        $customer = Customer::create([
-            'name' => $validated['name'],
-            'age' => $validated['age'],
-            'email' => $validated['email'],
-            'password' => Hash::make($validated['password']),
-        ]);
+        $customer = DB::transaction(function () use ($validated) {
+            return Customer::create([
+                'name' => $validated['name'],
+                'age' => $validated['age'],
+                'email' => $validated['email'],
+                'password' => Hash::make($validated['password']),
+            ]);
+        });
 
         Auth::guard('web')->login($customer);
 
