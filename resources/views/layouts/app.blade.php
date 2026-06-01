@@ -11,21 +11,17 @@
 
 <body class="bg-gray-100 text-gray-800 min-h-screen flex flex-col">
 
-    <!-- Header -->
     <header class="site-header">
         <div class="header-container">
-
-            <!-- Left -->
             <div class="header-left">
-
                 <h1 class="site-title">
-                    💇‍♀️ Salon Booking
+                    Salon Booking
                 </h1>
 
                 @auth
                     <nav class="main-nav">
                         <a href="{{ route('appointments.index') }}">
-                            空き状況
+                            予約カレンダー
                         </a>
 
                         <a href="{{ route('staff.index') }}">
@@ -35,19 +31,25 @@
                         <a href="{{ route('services.index') }}">
                             メニュー
                         </a>
+
+                        @if(auth()->user()->is_admin)
+                            <a href="{{ route('admin.appointments.index') }}">
+                                管理画面
+                            </a>
+                        @endif
                     </nav>
                 @endauth
-
             </div>
 
-
-            <!-- Right -->
             <div class="user-area">
-
                 @auth
                     <span class="user-name">
                         {{ auth()->user()->name }} さん
                     </span>
+
+                    <a href="{{ route('appointments.mypage') }}" class="mypage-link">
+                        マイページ
+                    </a>
 
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
@@ -64,18 +66,14 @@
                         新規登録
                     </a>
                 @endauth
-
             </div>
-
         </div>
     </header>
 
-    <!-- Main -->
     <main class="flex-1 max-w-5xl mx-auto w-full px-6 py-8">
         @yield('content')
     </main>
 
-    <!-- Footer -->
     <footer class="text-center text-xs text-gray-400 py-6 border-t bg-white">
         &copy; {{ date('Y') }} Salon Booking System
     </footer>

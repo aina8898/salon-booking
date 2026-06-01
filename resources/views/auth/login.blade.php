@@ -3,61 +3,56 @@
 @section('title', 'ログイン')
 
 @section('content')
-<div class="max-w-md mx-auto bg-white shadow rounded p-6">
-    <h2 class="text-xl font-bold mb-4">ログイン</h2>
+<div class="auth-page">
+    <section class="auth-card">
+        <h2 class="auth-title">ログイン</h2>
 
-    <form method="POST" action="{{ route('login') }}" class="space-y-4">
-        @csrf
+        <form method="POST" action="{{ route('login') }}" class="auth-form">
+            @csrf
 
-        <div>
-            <label class="block text-sm font-semibold mb-1">メールアドレス</label>
-            <input 
-                type="email" 
-                name="email" 
-                value="{{ old('email') }}" 
-                required 
-                autofocus
-                class="border rounded px-3 py-2 w-full @error('email') border-red-500 @enderror"
-            >
-            @error('email')
-                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-            @enderror
-        </div>
+            <div class="auth-field">
+                <label for="email" class="auth-label">メールアドレス</label>
+                <input
+                    id="email"
+                    type="email"
+                    name="email"
+                    value="{{ old('email') }}"
+                    required
+                    autofocus
+                    class="auth-input @error('email') is-error @enderror"
+                >
+                @error('email')
+                    <p class="auth-error">{{ $message }}</p>
+                @enderror
+            </div>
 
-        <div>
-            <label class="block text-sm font-semibold mb-1">パスワード</label>
-            <input 
-                type="password" 
-                name="password" 
-                required
-                class="border rounded px-3 py-2 w-full @error('password') border-red-500 @enderror"
-            >
-            @error('password')
-                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-            @enderror
-        </div>
+            <div class="auth-field">
+                <label for="password" class="auth-label">パスワード</label>
+                <input
+                    id="password"
+                    type="password"
+                    name="password"
+                    required
+                    class="auth-input @error('password') is-error @enderror"
+                >
+                @error('password')
+                    <p class="auth-error">{{ $message }}</p>
+                @enderror
+            </div>
 
-        <div class="flex items-center">
-            <input 
-                type="checkbox" 
-                name="remember" 
-                id="remember"
-                class="mr-2"
-            >
-            <label for="remember" class="text-sm">ログイン状態を保持する</label>
-        </div>
+            <label class="auth-check">
+                <input type="checkbox" name="remember" id="remember">
+                <span>ログイン状態を保持する</span>
+            </label>
 
-        <div class="flex gap-3">
-            <button type="submit" class="bg-pink-500 text-white px-6 py-2 rounded flex-1">
+            <button type="submit" class="auth-submit">
                 ログイン
             </button>
-        </div>
-    </form>
+        </form>
 
-    <div class="mt-4 text-center">
-        <a href="{{ route('register') }}" class="text-sm text-pink-600 hover:underline">
-            新規登録はこちら
-        </a>
-    </div>
+        <p class="auth-switch">
+            <a href="{{ route('register') }}">新規登録はこちら</a>
+        </p>
+    </section>
 </div>
 @endsection
