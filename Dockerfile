@@ -2,7 +2,7 @@ FROM php:8.2-apache
 
 RUN apt-get update && apt-get install -y \
     git unzip libzip-dev \
-    && docker-php-ext-install zip pdo pdo_mysql
+    && docker-php-ext-install zip pdo pdo_mysql pdo_sqlite
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
