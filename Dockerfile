@@ -14,6 +14,7 @@ RUN composer install --no-dev --optimize-autoloader
 
 RUN touch database/database.sqlite
 RUN php artisan migrate --force
+RUN php artisan db:seed --force
 RUN php artisan optimize
 
 RUN php artisan config:clear \
