@@ -7,6 +7,7 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\AppointmentController as AdminAppointmentController;
+use App\Http\Controllers\ProfileController;
 
 
 /*
@@ -52,6 +53,13 @@ Route::resource('services', ServiceController::class);
 Route::get('/mypage', [AppointmentController::class, 'mypage'])
     ->middleware('auth')
     ->name('appointments.mypage');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])
+        ->name('profile.edit');
+    Route::put('/profile', [ProfileController::class, 'update'])
+        ->name('profile.update');
+});
 
 Route::prefix('admin')
     ->middleware(['auth', 'admin'])

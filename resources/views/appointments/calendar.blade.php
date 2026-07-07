@@ -57,12 +57,18 @@
 
     <div class="calendar-legend">
         <div>
-            <span class="availability-calendar__symbol availability-calendar__symbol--free">○</span>
+            <span
+                class="availability-calendar__symbol availability-calendar__symbol--free"
+                aria-hidden="true"
+            >○</span>
             空きあり
         </div>
 
         <div>
-            <span class="availability-calendar__symbol availability-calendar__symbol--busy">×</span>
+            <span
+                class="availability-calendar__symbol availability-calendar__symbol--busy"
+                aria-hidden="true"
+            >×</span>
             予約あり
         </div>
     </div>
@@ -101,7 +107,10 @@
 
                             <td class="availability-calendar__cell">
                                 @if($cell['busy'])
-                                    <span class="availability-calendar__symbol availability-calendar__symbol--busy">
+                                    <span
+                                        class="availability-calendar__symbol availability-calendar__symbol--busy"
+                                        role="img"
+                                        aria-label="{{ $staff->name }}の{{ $timeLabel }}は予約あり">
                                         ×
                                     </span>
                                 @elseif($cell['can_book'])
@@ -111,11 +120,17 @@
                                             'staff_id' => $staff->id,
                                             'service_id' => $selectedServiceId ?? '',
                                         ]) }}"
-                                        class="availability-calendar__symbol availability-calendar__symbol--free">
+                                        class="availability-calendar__symbol availability-calendar__symbol--free"
+                                        aria-label="{{ $staff->name }}の{{ $timeLabel }}を予約する"
+                                        title="この時間を予約する">
                                         ○
                                     </a>
                                 @else
-                                    <span class="availability-calendar__symbol availability-calendar__symbol--free">
+                                    <span
+                                        class="availability-calendar__symbol availability-calendar__symbol--free"
+                                        role="img"
+                                        aria-label="{{ $staff->name }}の{{ $timeLabel }}は空きあり。メニューを選択すると予約できます"
+                                        title="メニューを選択すると予約できます">
                                         ○
                                     </span>
                                 @endif

@@ -8,6 +8,9 @@
             <h2 class="mypage__title">マイページ（予約一覧）</h2>
             <p class="mypage__lead">予約内容の確認、編集、キャンセルができます。</p>
         </div>
+        <a href="{{ route('profile.edit') }}" class="mypage-profile-link">
+            ユーザー情報を編集
+        </a>
     </div>
 
     @if(session('success'))
