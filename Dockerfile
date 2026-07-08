@@ -1,7 +1,7 @@
 FROM php:8.2-apache
 
 RUN apt-get update && apt-get install -y \
-    git unzip libzip-dev libsqlite3-dev \
+    git unzip libzip-dev libsqlite3-dev nodejs npm \
     && docker-php-ext-install zip pdo pdo_mysql pdo_sqlite
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
@@ -11,6 +11,9 @@ WORKDIR /var/www/html
 COPY . .
 
 RUN composer install --no-dev --optimize-autoloader
+
+RUN npm install
+RUN npm run build
 
 RUN cp .env.example .env
 
@@ -28,4 +31,4 @@ RUN a2enmod rewrite
 
 EXPOSE 80
 
-CMD php artisan migrate --force && php artisan db:seed --force && apache2-foreground
+CMD php artisan config:clear && php artisan migrate:fresh --force && php artisan db:seed --force && apache2-foreground
